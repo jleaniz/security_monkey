@@ -22,7 +22,7 @@
 """
 from security_monkey import app
 
-alerter_registry = []
+alerter_registry = ["splunk_alerter"]
 
 
 class AlerterType(type):

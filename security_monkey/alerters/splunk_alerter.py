@@ -20,10 +20,11 @@
 
 from security_monkey.alerters import custom_alerter
 from splunk_http_event_collector import http_event_collector
+from security_monkey import app
 
 http_event_collector_key = "14960f9d-4c77-4c5c-adca-fca32c60c039"
 http_event_collector_host = "https://ubisoft-splunk-hf.ubisoft.com:8088"
-testevent = http_event_collector(http_event_collector_key, http_event_collector_host)
+testevent = http_event_collector(http_event_collector_key, http_event_collector_host, input_type="raw")
 
 # "name=\"{}\"".format(
 #    item.db_item.id,
@@ -44,18 +45,21 @@ class SplunkAlerter(object):
             payload = {}
             payload.update({"name": "Created item: " + item.account + "" + item.name})
             payload.update({"host": "secmonkey.ubi.com"})
+            app.logger.info("Sending new event to Splunk.")
             testevent.sendEvent(payload)
 
         for item in watcher.changed_items:
             payload = {}
             payload.update({"name": "Changed item: " + item.account + "" + item.name})
             payload.update({"host": "secmonkey.ubi.com"})
+            app.logger.info("Sending new event to Splunk.")
             testevent.sendEvent(payload)
 
         for item in watcher.deleted_items:
             payload = {}
             payload.update({"name": "Deleted item: " + item.account + "" + item.name})
             payload.update({"host": "secmonkey.ubi.com"})
+            app.logger.info("Sending new event to Splunk.")
             testevent.sendEvent(payload)
 
     def report_auditor_changes(self, auditor):
@@ -64,10 +68,13 @@ class SplunkAlerter(object):
                 payload = {}
                 payload.update({"name": "New issue: " + item.account + "" + item.name})
                 payload.update({"host": "secmonkey.ubi.com"})
+                app.logger.info("Sending new event to Splunk.")
                 testevent.sendEvent(payload)
 
             for issue in item.confirmed_fixed_issues:
                 payload = {}
                 payload.update({"name": "Fixed issue: " + item.account + "" + item.name})
                 payload.update({"host": "secmonkey.ubi.com"})
+                app.logger.info("Sending new event to Splunk.")
                 testevent.sendEvent(payload)
+
