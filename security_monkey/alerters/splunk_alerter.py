@@ -22,8 +22,8 @@ from security_monkey.alerters import custom_alerter
 from splunk_http_event_collector import http_event_collector
 from security_monkey import app
 
-http_event_collector_key = "14960f9d-4c77-4c5c-adca-fca32c60c039"
-http_event_collector_host = "https://ubisoft-splunk-hf.ubisoft.com:8088"
+http_event_collector_key = ""
+http_event_collector_host = ""
 testevent = http_event_collector(http_event_collector_key, http_event_collector_host, input_type="raw")
 
 # "name=\"{}\"".format(
